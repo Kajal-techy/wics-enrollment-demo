@@ -1,0 +1,14 @@
+name: Enrollment Safety Check
+
+on: [push] # This tells the robot: "Wake up every time someone pushes code!"
+
+jobs:
+  test-the-app:
+    runs-on: ubuntu-latest # This starts a virtual computer in the cloud
+    steps:
+      - uses: actions/checkout@v4 # This pulls your code onto that computer
+      
+      - name: Run Safety Check
+        run: |
+          # This command will fail if MAX_CAPACITY is 0
+          python3 -c "from enrollment import MAX_CAPACITY; print(f'Capacity is {MAX_CAPACITY}'); assert MAX_CAPACITY > 0"
