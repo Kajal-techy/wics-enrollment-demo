@@ -1,0 +1,11 @@
+name: Enrollment Safety Check
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Safety Test
+        run: |
+          # This will FAIL if MAX_CAPACITY is 0
+          python3 -c "from enrollment import MAX_CAPACITY; assert MAX_CAPACITY > 0"
